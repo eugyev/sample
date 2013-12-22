@@ -1,43 +1,36 @@
 require 'spec_helper'
 
+
 describe "Static Pages" do
   stub = "Ruby on Rails Tutorial Sample App"
   describe 'Home page' do
-    it "should have the content 'sample app'" do
-      visit '/static_pages/home'
-      expect(page).to have_content('Sample App')
-    end
-    
-    it "should have title #{stub} | Home" do
-      visit '/static_pages/home'
-      expect(page).to have_title("#{stub} | Home")
-    end
+    before { visit root_path }
+    subject { page }
+
+    it { should have_content('Sample App') }
+    it { should_not have_title(full_title '| Home' ) }
+    it { should have_title full_title('') }
   end
   
   describe 'Help Page' do
-    it "should have the content 'help'" do
-      visit '/static_pages/help'
-      expect(page).to have_content('Help')
-    end
+    before { visit help_path }
+    subject { page } 
     
-    it "shoulve have the right title" do
-      visit '/static_pages/help'
-      expect(page).to have_title("#{stub} | Help")
-    end
-    
+    it {should have_content 'Help' }
+    it {should have_title(full_title 'Help') }    
   end
   
   describe 'About Page' do
-    it "should have About Us" do
-      visit '/static_pages/about'
-      expect(page).to have_content('About Us')
-    end
-    
-    it "should hav ethe right title" do
-      visit '/static_pages/about'
-      expect(page).to have_title("#{stub} | About")
-    end
+    before { visit about_path }
+    subject { page }
+    it {should have_content "About" }
+    it {should have_title(full_title 'About')}
+  end 
+  
+  describe 'Contact Page' do
+    before {visit contact_path }
+    subject {page}
+    it { should have_content 'Contact' }
+    it {should have_title full_title 'Contact'}
   end
-  
-  
 end
